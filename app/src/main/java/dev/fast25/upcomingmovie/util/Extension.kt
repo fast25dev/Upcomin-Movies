@@ -8,7 +8,29 @@ import androidx.fragment.app.Fragment
 
 object Extensions {
 
-    fun String.imageUrl()= "https://image.tmdb.org/t/p/original$this"
+    fun String.imageUrl() = "https://image.tmdb.org/t/p/w500$this"
+    fun String.imageUrlBack() = "https://image.tmdb.org/t/p/original$this"
+
+    fun String.formatBalance(): String {
+        var s = this
+        s = s.substring(0, s.length - 2)
+        var result = s[s.length - 1].toString()
+        for (i in 1 until s.length) {
+            result = if (i % 3 == 0) {
+                "${s[s.length - i - 1]} $result"
+            } else {
+                s[s.length - i - 1] + result
+            }
+        }
+        return result
+
+    }
+
+    fun youtubeImage(id: String) = "https://img.youtube.com/vi/${id}/0.jpg"
+
+
+    fun youtubeOpen(path: String) = "https://www.youtube.com/watch?v=${path}"
+
     fun View.hide() {
         this.visibility = View.GONE
     }

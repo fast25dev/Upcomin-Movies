@@ -1,5 +1,6 @@
 package dev.fast25.upcomingmovie.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,10 @@ class MovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val list = ArrayList<ResultsItem>()
     var itemClick: ((Int) -> Unit)? = null
 
-    fun submitList(list: ArrayList<ResultsItem>) {
+    fun submitList(list: ArrayList<ResultsItem>, isSearch: Boolean = false) {
+        if (isSearch) {
+            this.list.clear()
+        }
         this.list.addAll(list)
         notifyDataSetChanged()
     }
@@ -31,6 +35,7 @@ class MovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val movie = list[position]
+        Log.d("@@@@@", "onBindViewHolder: $movie")
         if (holder is MovieViewHolder) {
             holder.apply {
                 item.setOnClickListener {
@@ -43,8 +48,8 @@ class MovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     .into(ivMovie)
 
                 tvTitle.text = movie.title ?: "No title"
-                tvVote.text = "${((movie.voteAverage ?: 1.0)* 10).toInt()}/100"
-                tvPopularity.text = "${movie.popularity?.toInt()}"
+                tvVote.text = "${((movie.voteAverage ?: 1.0) * 10).toInt()}/100"
+                tvPopularity.text = "${movie.id}"
                 tvReleaseDate.text = movie.releaseDate
                 tvLang.text = movie.originalLanguage
                 tvOverview.text = movie.overview
