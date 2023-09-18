@@ -18,7 +18,7 @@
             android:layout_width="128dp"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             android:src="@drawable/img_place_holder" />
 
         <LinearLayout
